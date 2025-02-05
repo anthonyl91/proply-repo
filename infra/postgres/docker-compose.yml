@@ -1,0 +1,13 @@
+services:
+  proply-postgres:
+    build:
+      dockerfile: ./Dockerfile
+    container_name: "proply-postgres"
+    # image: ubuntu:22.04
+    ports:
+      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:22:22"
+    environment:
+      - DEBUG=${DEBUG:-0}
+    tty: true
+    command: ./assets/scripts/start-services.sh

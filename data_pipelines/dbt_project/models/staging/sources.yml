@@ -1,0 +1,13 @@
+sources:
+  - name: staging
+    database: proply
+    schema: staging
+    tables:
+      - name: landregistry_pricepaid
+        meta:
+          dagster:
+            asset_key: ["fetch_landregistry_pricepaid_from_url"]
+  #  database: proply
+  #  schema: staging
+  #  tables:
+  #     - name: landregistry_pricepaid

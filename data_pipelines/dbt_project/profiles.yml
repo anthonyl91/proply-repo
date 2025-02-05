@@ -1,0 +1,12 @@
+dbt_project:
+  outputs:
+    dev:
+      dbname: proply
+      host: 127.0.0.1
+      pass: '123'
+      port: 5432
+      schema: dbt_warehouse
+      threads: 4
+      type: postgres
+      user: postgres
+  target: dev
