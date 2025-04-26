@@ -37,17 +37,29 @@ defs = Definitions(
     resources={
         "s3_to_postgres_io_manager": S3ToPostgresIOManager(
             postgres_resource=PostgresResource(
-                host="localhost",
-                port=5432,
-                database="proply",
-                username="postgres",
-                password="123",
+                host=EnvVar("PG_HOST").get_value(),
+                port=EnvVar("PG_PORT").get_value(),
+                database=EnvVar("PG_DB").get_value(),
+                username=EnvVar("PG_USER").get_value(),
+                password=EnvVar("PG_PASSWORD").get_value(),
             ),
             postgres_ssh_resource=SSHResource(
-                host="localhost",
-                username="sshuser",
-                password="sshuser",
+                host=EnvVar("PG_HOST").get_value(),
+                username=EnvVar("SSH_USER").get_value(),
+                password=EnvVar("SSH_PASSWORD").get_value(),
             ),
+        ),
+        "postgres_resource": PostgresResource(
+            host=EnvVar("PG_HOST").get_value(),
+            port=EnvVar("PG_PORT").get_value(),
+            database=EnvVar("PG_DB").get_value(),
+            username=EnvVar("PG_USER").get_value(),
+            password=EnvVar("PG_PASSWORD").get_value(),
+        ),
+        "postgres_ssh_resource": SSHResource(
+            host=EnvVar("PG_HOST"),
+            username=EnvVar("SSH_USER").get_value(),
+            password=EnvVar("SSH_PASSWORD").get_value(),
         ),
         "dbt": DbtCliResource(project_dir=dbt_project),
         "s3": S3Resource(

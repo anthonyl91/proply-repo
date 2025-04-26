@@ -7,6 +7,18 @@ sources:
         meta:
           dagster:
             asset_key: ["fetch_landregistry_pricepaid_from_url"]
+      - name: govpolice_crimedata
+        meta:
+          dagster:
+            asset_key: ["fetch_govpolice_crimedata_from_url"]
+      - name: govschools_establishmentdata
+        meta:
+          dagster:
+            asset_key: ["fetch_govschools_establishmentdata_from_url"]
+      - name: ordinancesurvey_postcodes
+        meta:
+          dagster:
+            asset_key: ["fetch_ordinancesurvey_postcodes_from_url"]
   #  database: proply
   #  schema: staging
   #  tables:

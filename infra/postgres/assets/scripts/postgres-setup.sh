@@ -22,8 +22,8 @@ cp -f /assets/config/postgresql.conf /etc/postgresql/17/main/postgresql.conf
 
 
 # Install PostGIS, pgRouting
-sudo apt install postgresql-17-postgis-3
-sudo apt install postgis
+sudo apt -y install postgresql-17-postgis-3
+sudo apt -y install postgis
 sudo -u postgres psql -c "ALTER DATABASE proply SET search_path=public,postgis,contrib;"
 sudo -u postgres psql -d proply -c "CREATE SCHEMA postgis;"
 sudo -u postgres psql -d proply -c "CREATE EXTENSION postgis SCHEMA postgis;"

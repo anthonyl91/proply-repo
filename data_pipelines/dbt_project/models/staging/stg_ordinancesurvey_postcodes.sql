@@ -12,7 +12,7 @@
 
 
 select *
-from {{ source("staging","landregistry_pricepaid") }}
+from {{ source("staging","ordinancesurvey_postcodes") }}
 
 /*
     Uncomment the line below to remove records with null `id` values

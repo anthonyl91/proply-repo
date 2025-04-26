@@ -14,4 +14,6 @@ RUN /assets/scripts/postgres-setup.sh
 # Run aws-cli setup
 RUN /assets/scripts/aws-cli-setup.sh
 
+RUN apt install -y unzip
+
 CMD ["./assets/scripts/start-services.sh"]

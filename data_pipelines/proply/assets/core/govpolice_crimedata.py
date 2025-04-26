@@ -148,7 +148,7 @@ def fetch_govpolice_crimedata_from_url(
 
     current_datetimestamp = time.strftime("%Y%m%d-%H%M%S")
     s3_destination_path = (
-        f"landing/govpolice/crimedata/"
+        f"staging/govpolice/crimedata/"
         f"govpolice_crimedata_{current_datetimestamp}.csv"
     )
 

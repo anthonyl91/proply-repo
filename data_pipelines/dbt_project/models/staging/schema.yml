@@ -10,6 +10,33 @@ models:
           - unique
           - not_null
 
+  - name: stg_govpolice_crimedata
+    description: "A starter dbt model"
+    columns:
+      - name: crime_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_govschools_establishmentdata
+    description: "A starter dbt model"
+    columns:
+      - name: urn
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_ordinancesurvey_postcodes
+    description: "A starter dbt model"
+    columns:
+      - name: postcode
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
   - name: my_second_dbt_model
     description: "A starter dbt model"
     columns:
