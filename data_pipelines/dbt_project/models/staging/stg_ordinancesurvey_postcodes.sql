@@ -8,7 +8,7 @@
 */
 
 -- {{ config(materialized="incremental", unique_key="transaction_id",incremental_strategy = "merge") }}
-{{ config(materialized="view")}}
+{{ config(materialized="table")}}
 
 
 select *

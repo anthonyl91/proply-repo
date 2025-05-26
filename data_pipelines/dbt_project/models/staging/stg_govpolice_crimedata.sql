@@ -1,6 +1,6 @@
 
 -- {{ config(materialized="incremental", unique_key="crime_id",incremental_strategy = "merge") }}
-{{ config(materialized="view") }}
+{{ config(materialized="table") }}
 
 select 
 crime_id,

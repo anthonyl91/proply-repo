@@ -28,12 +28,12 @@ dbt_project.prepare_if_dev()
 
 
 @dbt_assets(manifest=dbt_project.manifest_path)
-def jaffle_shop_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
+def proply_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
     yield from dbt.cli(["build"], context=context).stream()
 
 
 defs = Definitions(
-    assets=[*raw_data_assets, jaffle_shop_dbt_assets],
+    assets=[*raw_data_assets, proply_dbt_assets],
     resources={
         "s3_to_postgres_io_manager": S3ToPostgresIOManager(
             postgres_resource=PostgresResource(

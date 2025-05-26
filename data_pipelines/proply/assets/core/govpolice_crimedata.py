@@ -70,9 +70,13 @@ def get_request_payload(dataset_metadata, max_extract_record_date):
 def request_download_dataset_url(request_session, url, headers, payload):
     response = request_session.post(f"{url}/data/", headers=headers, data=payload)
 
-    progress_url = re.search(
-        r"fetch_download\(\\'(.*?)\/\\'\)", str(response.content)
-    ).group(1)
+    clean_url = response.url.rstrip("/")
+    request_uuid = clean_url.split("/")[-1]
+
+    uuid_pattern = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    #  Hadnle case where uuid is in the url
+    if not re.match(uuid_pattern, request_uuid, re.IGNORECASE):
+        raise Exception("Download request failed - no matching uuid present in URL")
 
     progress_status = None
     retries = 0
@@ -80,7 +84,9 @@ def request_download_dataset_url(request_session, url, headers, payload):
         if retries == 100:
             # TODO: Raise err - timed out - 1000 seconds
             break
-        progress_response_content = requests.get(f"{url}{progress_url}").content
+        progress_response_content = requests.get(
+            f"{url}/data/progress/{request_uuid}"
+        ).content
         progress_response_json = json.loads(progress_response_content)
         progress_status = progress_response_json["status"]
 
