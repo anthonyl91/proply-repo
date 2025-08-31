@@ -12,9 +12,14 @@ from ...common.resources.s3_resource import S3Resource
 
 CHUNK_SIZE = 1024 * 1024 * 10
 
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+}
+
 
 def get_download_form_details(url):
-    response = requests.get(url)
+    response = requests.get(url, headers=HEADERS)
+
     response_soup = BeautifulSoup(response.content, features="html.parser")
     form_element = response_soup.find("form", {"action": "/Downloads/Collate"})
 
@@ -42,11 +47,11 @@ def get_download_form_details(url):
 
 
 def request_file_download_url(url, method, parameters, cookies):
-    response = requests.post(url=url, data=parameters, cookies=cookies)
+    response = requests.post(url=url, data=parameters, cookies=cookies, headers=HEADERS)
     download_status_url = response.url
     retries = 0
     while retries < 100:
-        download_status_response = requests.get(download_status_url)
+        download_status_response = requests.get(download_status_url, headers=HEADERS)
         response_soup = BeautifulSoup(
             download_status_response.content, features="html.parser"
         )

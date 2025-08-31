@@ -10,12 +10,20 @@ class PostgresResource(ConfigurableResource):
     password: str
 
     def get_connection(self):
+        keepalive_kwargs = {
+            "keepalives": 1,
+            "keepalives_idle": 30,
+            "keepalives_interval": 5,
+            "keepalives_count": 5,
+        }
+
         conn = psycopg2.connect(
             host=self.host,
             port=self.port,
             database=self.database,
             user=self.username,
             password=self.password,
+            **keepalive_kwargs
         )
         # conn.set_isolation_level(psycopg2.extentions.ISOLATION_LEVEL_AUTOCOMMIT)
         return conn
