@@ -22,7 +22,7 @@ def _get_geojson_features(
         cursor = postgres_conn.cursor()
         cursor.execute(
             f"""
-            SELECT ST_AsGeoJSON(ST_Simplify(geom,100)) as geometry,
+            SELECT ST_AsGeoJSON(ST_Simplify(geom,1000)) as geometry,
                to_jsonb(row) - 'geom' as properties
             FROM (
                 SELECT gid, name, geom  -- Replace with your table and columns
@@ -44,8 +44,8 @@ def _get_geojson_features(
 
         result_page += 1
         # For testing
-        # if result_page > 2:
-        #    break
+        if result_page > 100:
+            break
 
 
 def _get_geojson_object_byte_stream(geojson_features) -> Generator[bytes, None, None]:

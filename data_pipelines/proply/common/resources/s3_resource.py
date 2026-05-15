@@ -39,7 +39,10 @@ class S3Resource(ConfigurableResource):
         parts = []
 
         response = s3_client.create_multipart_upload(
-            Bucket=bucket, ContentType="text/html", Key=destination
+            Bucket=bucket,
+            ContentType="text/html",
+            Key=destination,
+            ChecksumAlgorithm="CRC32",
         )
         upload_id = response["UploadId"]
 
@@ -50,8 +53,15 @@ class S3Resource(ConfigurableResource):
                 Body=chunk,
                 PartNumber=part_number,
                 UploadId=upload_id,
+                ChecksumAlgorithm="CRC32",
             )
-            parts.append({"PartNumber": part_number, "ETag": part["ETag"]})
+            parts.append(
+                {
+                    "PartNumber": part_number,
+                    "ETag": part["ETag"],
+                    "ChecksumCRC32": part["ChecksumCRC32"],
+                }
+            )
             part_number += 1
 
         s3_client.complete_multipart_upload(
